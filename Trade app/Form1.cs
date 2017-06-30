@@ -55,24 +55,26 @@ namespace Trade_Entry_Application
 
         private void button1_Click(object sender, EventArgs e)
         {
-            x = Int32.Parse(tradeLength.Text);
-            Console.WriteLine("ButtonPressed");
-            decimal floatEntryInt = Convert.ToDecimal(Entry.Text);
-            decimal notionalEntryDec = Convert.ToDecimal(notionalEntry.Text);
-            decimal output = notionalEntryDec * floatEntryInt;
-            string outputstr = Convert.ToString(output).ToString();
-            resultBox.Text = output.ToString();
-            this.timer1.Start();
-            if (notionalEntry.Text == "")
-            {
-                Console.WriteLine("Enter Something");
+            string x = tradeLength.Text;
+            int i = int.Parse(x);
+            for (int l = 1; l <=i; l++) {
+                decimal floatEntryInt = Convert.ToDecimal(Entry.Text);
+                decimal notionalEntryDec = Convert.ToDecimal(notionalEntry.Text);
+                decimal output = notionalEntryDec * floatEntryInt;
+                string outputstr = Convert.ToString(output).ToString();
+                resultBox.Text = output.ToString();
+                this.timer1.Start();
+                if (notionalEntry.Text == "")
+                {
+                    Console.WriteLine("Enter Something");
+                }
+                string newdate = date.ToString();
+                DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
+                row.Cells[0].Value = newdate;
+                row.Cells[1].Value = newdate;
+                paymentDates.Rows.Add(row);
+                this.timer1.Stop();
             }
-            string newdate = date.ToString();
-            DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
-            row.Cells[0].Value = newdate;
-            row.Cells[1].Value = newdate;
-            paymentDates.Rows.Add(row);
-            this.timer1.Stop();
             }
 
 

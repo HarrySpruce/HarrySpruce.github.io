@@ -45,20 +45,26 @@
             this.floatingLegFreq = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.tradeLength = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tradeLengthLabel = new System.Windows.Forms.Label();
+            this.tradeLength = new System.Windows.Forms.TextBox();
             this.paymentDates = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fixedFreqTableLabel = new System.Windows.Forms.Label();
+            this.floatingFreqTableLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar
             // 
             this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.progressBar.Location = new System.Drawing.Point(0, 405);
+            this.progressBar.Location = new System.Drawing.Point(-1, 465);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(407, 20);
+            this.progressBar.Size = new System.Drawing.Size(472, 20);
             this.progressBar.TabIndex = 0;
             // 
             // Notional
@@ -207,22 +213,22 @@
             this.comboBox3.TabIndex = 18;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
+            // tradeLengthLabel
+            // 
+            this.tradeLengthLabel.AutoSize = true;
+            this.tradeLengthLabel.Location = new System.Drawing.Point(9, 204);
+            this.tradeLengthLabel.Name = "tradeLengthLabel";
+            this.tradeLengthLabel.Size = new System.Drawing.Size(115, 13);
+            this.tradeLengthLabel.TabIndex = 19;
+            this.tradeLengthLabel.Text = "Trade Length - Months";
+            // 
             // tradeLength
             // 
-            this.tradeLength.AutoSize = true;
-            this.tradeLength.Location = new System.Drawing.Point(9, 204);
+            this.tradeLength.Location = new System.Drawing.Point(12, 220);
             this.tradeLength.Name = "tradeLength";
-            this.tradeLength.Size = new System.Drawing.Size(115, 13);
-            this.tradeLength.TabIndex = 19;
-            this.tradeLength.Text = "Trade Length - Months";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(12, 220);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 21;
-            this.textBox1.Text = "0";
+            this.tradeLength.Size = new System.Drawing.Size(100, 20);
+            this.tradeLength.TabIndex = 21;
+            this.tradeLength.Text = "0";
             // 
             // paymentDates
             // 
@@ -230,7 +236,7 @@
             this.paymentDates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Date});
-            this.paymentDates.Location = new System.Drawing.Point(118, 221);
+            this.paymentDates.Location = new System.Drawing.Point(118, 204);
             this.paymentDates.Name = "paymentDates";
             this.paymentDates.Size = new System.Drawing.Size(244, 106);
             this.paymentDates.TabIndex = 22;
@@ -245,14 +251,56 @@
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dataGridView1.Location = new System.Drawing.Point(119, 329);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(244, 106);
+            this.dataGridView1.TabIndex = 23;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Month";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Date";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // fixedFreqTableLabel
+            // 
+            this.fixedFreqTableLabel.AutoSize = true;
+            this.fixedFreqTableLabel.Location = new System.Drawing.Point(278, 188);
+            this.fixedFreqTableLabel.Name = "fixedFreqTableLabel";
+            this.fixedFreqTableLabel.Size = new System.Drawing.Size(85, 13);
+            this.fixedFreqTableLabel.TabIndex = 24;
+            this.fixedFreqTableLabel.Text = "Fixed Frequency";
+            // 
+            // floatingFreqTableLabel
+            // 
+            this.floatingFreqTableLabel.AutoSize = true;
+            this.floatingFreqTableLabel.Location = new System.Drawing.Point(266, 313);
+            this.floatingFreqTableLabel.Name = "floatingFreqTableLabel";
+            this.floatingFreqTableLabel.Size = new System.Drawing.Size(97, 13);
+            this.floatingFreqTableLabel.TabIndex = 25;
+            this.floatingFreqTableLabel.Text = "Floating Frequency";
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(407, 426);
+            this.ClientSize = new System.Drawing.Size(471, 486);
+            this.Controls.Add(this.floatingFreqTableLabel);
+            this.Controls.Add(this.fixedFreqTableLabel);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.paymentDates);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.tradeLength);
+            this.Controls.Add(this.tradeLengthLabel);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label4);
@@ -273,6 +321,7 @@
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,11 +345,16 @@
         private System.Windows.Forms.TextBox floatingLegFreq;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.Label tradeLength;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label tradeLengthLabel;
+        private System.Windows.Forms.TextBox tradeLength;
         private System.Windows.Forms.DataGridView paymentDates;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Label fixedFreqTableLabel;
+        private System.Windows.Forms.Label floatingFreqTableLabel;
     }
 }
 
