@@ -13,6 +13,11 @@ namespace Trade_Entry_Application
     public partial class Form : System.Windows.Forms.Form
     {
         DateTime date = DateTime.Now;
+        DateTime utcDate = DateTime.UtcNow;
+        DateTime Today = DateTime.Today;
+        int day = (int)System.DateTime.Now.DayOfWeek;
+
+        string dayoftheweek;
         string x;
         string currency;
         string FixedLegFreqInterval;
@@ -55,9 +60,38 @@ namespace Trade_Entry_Application
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (day == 1)
+            {
+                dayoftheweek = "Monday";
+            }
+            if (day == 2)
+            {
+                dayoftheweek = "Tuesday";
+            }
+            if (day == 3)
+            {
+                dayoftheweek = "Wednesday";
+            }
+            if (day == 4)
+            {
+                dayoftheweek = "Thursday";
+            }
+            if (day == 5)
+            {
+                dayoftheweek = "Friday";
+            }
+            if (day == 6)
+            {
+                dayoftheweek = "Saturday";
+            }
+            if (day == 7)
+            {
+                dayoftheweek = "Sunday";
+            }
             string x = tradeLength.Text;
             int i = int.Parse(x);
-            for (int l = 1; l <=i; l++) {
+            for (int l = 1; l <= i; l++)
+            {
                 decimal floatEntryInt = Convert.ToDecimal(Entry.Text);
                 decimal notionalEntryDec = Convert.ToDecimal(notionalEntry.Text);
                 decimal output = notionalEntryDec * floatEntryInt;
@@ -70,12 +104,13 @@ namespace Trade_Entry_Application
                 }
                 string newdate = date.ToString();
                 DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
-                row.Cells[0].Value = newdate;
-                row.Cells[1].Value = newdate;
+                row.Cells[0].Value = dayoftheweek;
+                row.Cells[1].Value = dayoftheweek;
+                day = day + 1;
                 paymentDates.Rows.Add(row);
                 this.timer1.Stop();
             }
-            }
+        }
 
 
         private void notionalEntry_TextChanged(object sender, EventArgs e)

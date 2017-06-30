@@ -62,9 +62,9 @@
             // progressBar
             // 
             this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.progressBar.Location = new System.Drawing.Point(-1, 465);
+            this.progressBar.Location = new System.Drawing.Point(1, 465);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(472, 20);
+            this.progressBar.Size = new System.Drawing.Size(470, 20);
             this.progressBar.TabIndex = 0;
             // 
             // Notional
@@ -236,7 +236,7 @@
             this.paymentDates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Date});
-            this.paymentDates.Location = new System.Drawing.Point(118, 204);
+            this.paymentDates.Location = new System.Drawing.Point(123, 204);
             this.paymentDates.Name = "paymentDates";
             this.paymentDates.Size = new System.Drawing.Size(244, 106);
             this.paymentDates.TabIndex = 22;
@@ -257,7 +257,7 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2});
-            this.dataGridView1.Location = new System.Drawing.Point(119, 329);
+            this.dataGridView1.Location = new System.Drawing.Point(124, 329);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(244, 106);
             this.dataGridView1.TabIndex = 23;
@@ -275,7 +275,7 @@
             // fixedFreqTableLabel
             // 
             this.fixedFreqTableLabel.AutoSize = true;
-            this.fixedFreqTableLabel.Location = new System.Drawing.Point(278, 188);
+            this.fixedFreqTableLabel.Location = new System.Drawing.Point(283, 188);
             this.fixedFreqTableLabel.Name = "fixedFreqTableLabel";
             this.fixedFreqTableLabel.Size = new System.Drawing.Size(85, 13);
             this.fixedFreqTableLabel.TabIndex = 24;
@@ -284,7 +284,7 @@
             // floatingFreqTableLabel
             // 
             this.floatingFreqTableLabel.AutoSize = true;
-            this.floatingFreqTableLabel.Location = new System.Drawing.Point(266, 313);
+            this.floatingFreqTableLabel.Location = new System.Drawing.Point(271, 313);
             this.floatingFreqTableLabel.Name = "floatingFreqTableLabel";
             this.floatingFreqTableLabel.Size = new System.Drawing.Size(97, 13);
             this.floatingFreqTableLabel.TabIndex = 25;
