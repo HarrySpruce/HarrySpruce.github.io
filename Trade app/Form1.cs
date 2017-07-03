@@ -59,63 +59,69 @@ namespace Trade_Entry_Application
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            decimal floatEntryInt = Convert.ToDecimal(Entry.Text);
-            decimal notionalEntryDec = Convert.ToDecimal(notionalEntry.Text);
-            decimal output = notionalEntryDec * floatEntryInt;
-            string outputstr = Convert.ToString(output).ToString();
-            resultBox.Text = output.ToString();
-            string x = tradeLength.Text;
-            int i = int.Parse(x);
+            int i = 12;
+            int monthnum = 0;
+            string month = "January";
             for (int l = 1; l <= i; l++)
             {
-                string input = System.DateTime.Today.ToShortDateString();
-                int index = input.IndexOf("/");
-                int outp = Convert.ToInt32(input.Replace(@"\", ""));
-                int outp2 = Convert.ToInt32(input.Replace(@"\", ""));
-                outp2 = outp2 + Convert.ToInt32(floatingLegFreq.Text);
-                outp = outp + Convert.ToInt32(fixedLegFreq.Text);
-                Console.WriteLine(Convert.ToInt32(fixedLegFreq.Text));
-                if (day == 0)
+                monthnum++;
+                if (monthnum == 1)
                 {
-                    dayoftheweek = "Monday";
-                    Businessday = true;
+                    month = "January";
                 }
-                if (day == 1)
+                if (monthnum == 2)
                 {
-                    dayoftheweek = "Tuesday";
-                    Businessday = true;
+                    month = "February";
                 }
-                if (day == 2)
+                if (monthnum == 3)
                 {
-                    dayoftheweek = "Wednesday";
-                    Businessday = true;
+                    month = "March";
                 }
-                if (day == 3)
+                if (monthnum == 4)
                 {
-                    dayoftheweek = "Thursday";
-                    Businessday = true;
+                    month = "April";
                 }
-                if (day == 4)
+                if (monthnum == 5)
                 {
-                    dayoftheweek = "Friday";
-                    Businessday = true;
+                    month = "May";
                 }
-                if (day == 5)
+                if (monthnum == 6)
                 {
-                    dayoftheweek = "Saturday";
-                    Businessday = false;
+                    month = "June";
                 }
-                if (day == 6)
+                if (monthnum == 7)
                 {
-                    dayoftheweek = "Sunday";
-                    Businessday = false;
+                    month = "July";
                 }
-                if (day >= 7)
+                if (monthnum == 8)
                 {
-                    day = 0;
-                    dayoftheweek = "Monday";
-                    Businessday = true;
+                    month = "August";
                 }
+                if (monthnum == 9)
+                {
+                    month = "September";
+                }
+                if (monthnum == 10)
+                {
+                    month = "October";
+                }
+                if (monthnum == 11)
+                {
+                    month = "November";
+                }
+                if (monthnum == 12)
+                {
+                    month = "December";
+                }
+                else
+                {
+                    month = "Null";
+                    monthnum = 0;
+                }
+                int outp = int.Parse(tradeLength.Text) / int.Parse(fixedLegFreq.Text);
+                Console.WriteLine(outp);
+                Console.WriteLine("Test");
+
                 this.timer1.Start();
                 if (notionalEntry.Text == "")
                 {
@@ -125,29 +131,17 @@ namespace Trade_Entry_Application
                 DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
                 DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
 
-                if (Businessday == true)
-                {
-                    int floatingLegFreqStringInt = int.Parse(floatingLegFreq.Text);
-                    int fixedLegFreqStringInt = int.Parse(fixedLegFreq.Text);
-                    if (index > 0)
-                    {
-                        input = input.Substring(0, index);
-                    }
-                    outp = outp + fixedLegFreqStringInt;
-                    outp2 = Convert.ToInt32(input.Replace(@"\", ""));
-                    outp2 = outp2 + floatingLegFreqStringInt;
-                    row.Cells[0].Value = outp;
+                    row.Cells[0].Value = resultBox.Text;
                     row.Cells[1].Value = Businessday;
                     row.Cells[2].Value = resultBox.Text;
                     string currentdate = System.DateTime.Today.ToShortDateString();
                     paymentDates.Rows.Add(row);
-                    this.timer1.Stop();
+
                     int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
-                    row2.Cells[0].Value = outp2;
+                    row2.Cells[0].Value = resultBox.Text;
                     row2.Cells[1].Value = Businessday;
                     row2.Cells[2].Value = resultBox.Text;
                     paymentDates2.Rows.Add(row2);
-                }
             }
         }
 
