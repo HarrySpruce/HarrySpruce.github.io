@@ -17,8 +17,8 @@ namespace Trade_Entry_Application
         DateTime Today = DateTime.Today;
         int day = (int)System.DateTime.Now.DayOfWeek;
 
+        bool Businessday;
         string dayoftheweek;
-        string x;
         string currency;
         string FixedLegFreqInterval;
         string floatingLegFreqInterval;
@@ -57,46 +57,65 @@ namespace Trade_Entry_Application
                 bool flip = false;
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            if (day == 1)
-            {
-                dayoftheweek = "Monday";
-            }
-            if (day == 2)
-            {
-                dayoftheweek = "Tuesday";
-            }
-            if (day == 3)
-            {
-                dayoftheweek = "Wednesday";
-            }
-            if (day == 4)
-            {
-                dayoftheweek = "Thursday";
-            }
-            if (day == 5)
-            {
-                dayoftheweek = "Friday";
-            }
-            if (day == 6)
-            {
-                dayoftheweek = "Saturday";
-            }
-            if (day == 7)
-            {
-                dayoftheweek = "Sunday";
-            }
+            decimal floatEntryInt = Convert.ToDecimal(Entry.Text);
+            decimal notionalEntryDec = Convert.ToDecimal(notionalEntry.Text);
+            decimal output = notionalEntryDec * floatEntryInt;
+            string outputstr = Convert.ToString(output).ToString();
+            resultBox.Text = output.ToString();
             string x = tradeLength.Text;
             int i = int.Parse(x);
             for (int l = 1; l <= i; l++)
             {
-                decimal floatEntryInt = Convert.ToDecimal(Entry.Text);
-                decimal notionalEntryDec = Convert.ToDecimal(notionalEntry.Text);
-                decimal output = notionalEntryDec * floatEntryInt;
-                string outputstr = Convert.ToString(output).ToString();
-                resultBox.Text = output.ToString();
+                string input = System.DateTime.Today.ToShortDateString();
+                int index = input.IndexOf("/");
+                int outp = Convert.ToInt32(input.Replace(@"\", ""));
+                int outp2 = Convert.ToInt32(input.Replace(@"\", ""));
+                outp2 = outp2 + Convert.ToInt32(floatingLegFreq.Text);
+                outp = outp + Convert.ToInt32(fixedLegFreq.Text);
+                Console.WriteLine(Convert.ToInt32(fixedLegFreq.Text));
+                if (day == 0)
+                {
+                    dayoftheweek = "Monday";
+                    Businessday = true;
+                }
+                if (day == 1)
+                {
+                    dayoftheweek = "Tuesday";
+                    Businessday = true;
+                }
+                if (day == 2)
+                {
+                    dayoftheweek = "Wednesday";
+                    Businessday = true;
+                }
+                if (day == 3)
+                {
+                    dayoftheweek = "Thursday";
+                    Businessday = true;
+                }
+                if (day == 4)
+                {
+                    dayoftheweek = "Friday";
+                    Businessday = true;
+                }
+                if (day == 5)
+                {
+                    dayoftheweek = "Saturday";
+                    Businessday = false;
+                }
+                if (day == 6)
+                {
+                    dayoftheweek = "Sunday";
+                    Businessday = false;
+                }
+                if (day >= 7)
+                {
+                    day = 0;
+                    dayoftheweek = "Monday";
+                    Businessday = true;
+                }
                 this.timer1.Start();
                 if (notionalEntry.Text == "")
                 {
@@ -104,11 +123,31 @@ namespace Trade_Entry_Application
                 }
                 string newdate = date.ToString();
                 DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
-                row.Cells[0].Value = dayoftheweek;
-                row.Cells[1].Value = dayoftheweek;
-                day = day + 1;
-                paymentDates.Rows.Add(row);
-                this.timer1.Stop();
+                DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
+
+                if (Businessday == true)
+                {
+                    int floatingLegFreqStringInt = int.Parse(floatingLegFreq.Text);
+                    int fixedLegFreqStringInt = int.Parse(fixedLegFreq.Text);
+                    if (index > 0)
+                    {
+                        input = input.Substring(0, index);
+                    }
+                    outp = outp + fixedLegFreqStringInt;
+                    outp2 = Convert.ToInt32(input.Replace(@"\", ""));
+                    outp2 = outp2 + floatingLegFreqStringInt;
+                    row.Cells[0].Value = outp;
+                    row.Cells[1].Value = Businessday;
+                    row.Cells[2].Value = resultBox.Text;
+                    string currentdate = System.DateTime.Today.ToShortDateString();
+                    paymentDates.Rows.Add(row);
+                    this.timer1.Stop();
+                    int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
+                    row2.Cells[0].Value = outp2;
+                    row2.Cells[1].Value = Businessday;
+                    row2.Cells[2].Value = resultBox.Text;
+                    paymentDates2.Rows.Add(row2);
+                }
             }
         }
 
@@ -211,51 +250,10 @@ namespace Trade_Entry_Application
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox2.Text == "Months")
-            {
-                currentlyusingfixed = "Months";
-                FixedLegFreqInterval = "Months";
-            }
-            if (comboBox2.Text == "Days")
-            {
-                currentlyusingfloat = "Days";
-                FixedLegFreqInterval = "Days";
-            }
-            if (comboBox2.Text == "Weeks")
-            {
-                currentlyusingfloat = "Weeks";
-                FixedLegFreqInterval = "Weeks";
-            }
-            if (comboBox2.Text == "Years")
-            {
-                currentlyusingfloat = "Years";
-                FixedLegFreqInterval = "Years";
-            }
-            fixedLegFreq.Text = fixedLegFreq.Text + " " + FixedLegFreqInterval;
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox3.Text == "Months")
-            {
-                currentlyusingfixed = "Months";
-                floatingLegFreqInterval = "Months";
-            }
-            if (comboBox3.Text == "Days")
-            {
-                floatingLegFreqInterval = "Days";
-                currentlyusingfixed = "Days";
-            }
-            if (comboBox3.Text == "Weeks")
-            {
-                floatingLegFreqInterval = "Weeks";
-                currentlyusingfixed = "Weeks";
-            }
-            if (comboBox3.Text == "Years")
-            {
-                floatingLegFreqInterval = "Years";
-                currentlyusingfixed = "Years";
-            }
             floatingLegFreq.Text = floatingLegFreq.Text + " " + floatingLegFreqInterval;
         }
 
@@ -263,6 +261,11 @@ namespace Trade_Entry_Application
         {
             //Add variables that specify the fixedLegFreq
             //Text Replacement for intervals.
+            if (fixedLegFreq.Text.EndsWith("M"))
+            {
+                int k = DateTime.DaysInMonth(System.DateTime.Now.Year, System.DateTime.Now.Month);
+                Console.WriteLine(k);
+            }
             if (fixedLegFreq.Text.EndsWith("d"))
             {
                 FixedLegFreqInterval = "Days";
@@ -343,6 +346,16 @@ namespace Trade_Entry_Application
             {
                 currentlyusingfloat = "Nothing";
             }
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void paymentDates_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
