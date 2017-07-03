@@ -59,91 +59,39 @@ namespace Trade_Entry_Application
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            int outp = 0;
-            int i = int.Parse(tradeLength.Text);
-            string month = "January";
-            for (int l = 1; l <= i; l++)
+            int fixedFreq = int.Parse(fixedLegFreq.Text);
+            int floatFreq = int.Parse(floatingLegFreq.Text);
+            int fixedNumberOfPayments = (int.Parse(tradeLength.Text) / fixedFreq);
+            int floatingNumberOfPayments = (int.Parse(tradeLength.Text) / floatFreq);
+            DateTime fixedPaymentDate = DateTime.Now;
+            DateTime floatingPaymentDate = DateTime.Now;
+            for (int l = 0; l < fixedNumberOfPayments; l++)
             {
                 Console.WriteLine("I iterated " + l + " Amount of times");
-                if (l == 1)
-                {
-                    month = "January";
-                }
-                if (l == 2)
-                {
-                    month = "February";
-                }
-                if (l == 3)
-                {
-                    month = "March";
-                }
-                if (l == 4)
-                {
-                    month = "Aprll";
-                }
-                if (l == 5)
-                {
-                    month = "May";
-                }
-                if (l == 6)
-                {
-                    month = "June";
-                }
-                if (l == 7)
-                {
-                    month = "July";
-                }
-                if (l == 8)
-                {
-                    month = "August";
-                }
-                if (l == 9)
-                {
-                    month = "September";
-                }
-                if (l == 10)
-                {
-                    month = "October";
-                }
-                if (l == 11)
-                {
-                    month = "November";
-                }
-                if (l == 12)
-                {
-                    month = "December";
-                }
-                else
-                {
-                    month = "Null";
-                    l = 1;
-                }
-                Console.WriteLine(month);
-                outp = (int.Parse(tradeLength.Text) / int.Parse(fixedLegFreq.Text)) + int.Parse(fixedLegFreq.Text);
-                Console.WriteLine(outp);
                 Console.WriteLine("Test");
 
-                this.timer1.Start();
-                if (notionalEntry.Text == "")
-                {
-                    Console.WriteLine("Enter Something");
-                }
-                string newdate = date.ToString();
+                fixedPaymentDate = fixedPaymentDate.AddMonths(fixedFreq);
+
+                string newDate = date.ToString();
                 DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
-                DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
 
-                    row.Cells[0].Value = month;
-                    row.Cells[1].Value = Businessday;
-                    row.Cells[2].Value = resultBox.Text;
-                    string currentdate = System.DateTime.Today.ToShortDateString();
-                    paymentDates.Rows.Add(row);
-
-                    int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
-                    row2.Cells[0].Value = month;
-                    row2.Cells[1].Value = Businessday;
-                    row2.Cells[2].Value = resultBox.Text;
-                    paymentDates2.Rows.Add(row2);
+                row.Cells[0].Value = fixedPaymentDate;
+                row.Cells[1].Value = Businessday;
+                row.Cells[2].Value = resultBox.Text;
+                string currentdate = System.DateTime.Today.ToShortDateString();
+                paymentDates.Rows.Add(row);
             }
+
+            for (int d = 0; d < floatingNumberOfPayments; d++)
+                {
+                DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
+                floatingPaymentDate = floatingPaymentDate.AddMonths(floatFreq);
+                int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
+                row2.Cells[0].Value = floatingPaymentDate;
+                row2.Cells[1].Value = Businessday;
+                row2.Cells[2].Value = resultBox.Text;
+                paymentDates2.Rows.Add(row2);
+                }
         }
 
 
