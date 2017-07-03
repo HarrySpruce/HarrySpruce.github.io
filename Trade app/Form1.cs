@@ -59,6 +59,8 @@ namespace Trade_Entry_Application
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            decimal test = Decimal.Parse(Entry.Text) * Decimal.Parse(notionalEntry.Text);
+            resultBox.Text = Convert.ToString(test);
             int fixedFreq = int.Parse(fixedLegFreq.Text);
             int floatFreq = int.Parse(floatingLegFreq.Text);
             int fixedNumberOfPayments = (int.Parse(tradeLength.Text) / fixedFreq);

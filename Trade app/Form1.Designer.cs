@@ -49,18 +49,18 @@
             this.tradeLengthLabel = new System.Windows.Forms.Label();
             this.tradeLength = new System.Windows.Forms.TextBox();
             this.paymentDates = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Businessdays = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountPayed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentDates2 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.businessdays2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountPayed2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fixedFreqTableLabel = new System.Windows.Forms.Label();
             this.floatingFreqTableLabel = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.floatingRate = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Businessdays = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountPayed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.businessdays2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountPayed2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates2)).BeginInit();
             this.SuspendLayout();
@@ -251,6 +251,21 @@
             this.paymentDates.TabIndex = 22;
             this.paymentDates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.paymentDates_CellContentClick);
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Month";
+            this.Column1.Name = "Column1";
+            // 
+            // Businessdays
+            // 
+            this.Businessdays.HeaderText = "Business Days";
+            this.Businessdays.Name = "Businessdays";
+            // 
+            // amountPayed
+            // 
+            this.amountPayed.HeaderText = "Amount Payed";
+            this.amountPayed.Name = "amountPayed";
+            // 
             // paymentDates2
             // 
             this.paymentDates2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -262,6 +277,21 @@
             this.paymentDates2.Name = "paymentDates2";
             this.paymentDates2.Size = new System.Drawing.Size(339, 228);
             this.paymentDates2.TabIndex = 23;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Month";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // businessdays2
+            // 
+            this.businessdays2.HeaderText = "Business Days";
+            this.businessdays2.Name = "businessdays2";
+            // 
+            // amountPayed2
+            // 
+            this.amountPayed2.HeaderText = "Amount Payed";
+            this.amountPayed2.Name = "amountPayed2";
             // 
             // fixedFreqTableLabel
             // 
@@ -306,36 +336,6 @@
             this.label2.Size = new System.Drawing.Size(214, 13);
             this.label2.TabIndex = 28;
             this.label2.Text = "Enter m to set Frequency to once per month";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Month";
-            this.Column1.Name = "Column1";
-            // 
-            // Businessdays
-            // 
-            this.Businessdays.HeaderText = "Business Days";
-            this.Businessdays.Name = "Businessdays";
-            // 
-            // amountPayed
-            // 
-            this.amountPayed.HeaderText = "Amount Payed";
-            this.amountPayed.Name = "amountPayed";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Month";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // businessdays2
-            // 
-            this.businessdays2.HeaderText = "Business Days";
-            this.businessdays2.Name = "businessdays2";
-            // 
-            // amountPayed2
-            // 
-            this.amountPayed2.HeaderText = "Amount Payed";
-            this.amountPayed2.Name = "amountPayed2";
             // 
             // Form
             // 
