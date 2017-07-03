@@ -65,6 +65,38 @@ namespace Trade_Entry_Application
             int floatingNumberOfPayments = (int.Parse(tradeLength.Text) / floatFreq);
             DateTime fixedPaymentDate = DateTime.Now;
             DateTime floatingPaymentDate = DateTime.Now;
+            day = fixedPaymentDate.Day;
+            if (day == 1)
+            {
+                dayoftheweek = "Monday";
+                Businessday = true;
+            }
+            else if (day == 2)
+            {
+                dayoftheweek = "Tuesday";
+                Businessday = true;
+            }
+            else if (day == 3)
+            {
+                dayoftheweek = "Wednesday";
+                Businessday = true;
+            }
+            else if (day == 4)
+            {
+                dayoftheweek = "Thursday";
+                Businessday = true;
+            }
+            else if (day == 5)
+            {
+                dayoftheweek = "Friday";
+                Businessday = true;
+            }
+            else
+            {
+                dayoftheweek = "null";
+                Businessday = false;
+            }
+
             for (int l = 0; l < fixedNumberOfPayments; l++)
             {
                 Console.WriteLine("I iterated " + l + " Amount of times");
