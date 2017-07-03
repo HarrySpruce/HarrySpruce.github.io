@@ -60,65 +60,65 @@ namespace Trade_Entry_Application
         private void button1_Click(object sender, EventArgs e)
         {
             int outp = 0;
-            int i = 12;
-            int monthnum = 0;
+            int i = int.Parse(tradeLength.Text);
             string month = "January";
             for (int l = 1; l <= i; l++)
             {
-                monthnum++;
-                if (monthnum == 1)
+                Console.WriteLine("I iterated " + l + " Amount of times");
+                if (l == 1)
                 {
                     month = "January";
                 }
-                if (monthnum == 2)
+                if (l == 2)
                 {
                     month = "February";
                 }
-                if (monthnum == 3)
+                if (l == 3)
                 {
                     month = "March";
                 }
-                if (monthnum == 4)
+                if (l == 4)
                 {
-                    month = "April";
+                    month = "Aprll";
                 }
-                if (monthnum == 5)
+                if (l == 5)
                 {
                     month = "May";
                 }
-                if (monthnum == 6)
+                if (l == 6)
                 {
                     month = "June";
                 }
-                if (monthnum == 7)
+                if (l == 7)
                 {
                     month = "July";
                 }
-                if (monthnum == 8)
+                if (l == 8)
                 {
                     month = "August";
                 }
-                if (monthnum == 9)
+                if (l == 9)
                 {
                     month = "September";
                 }
-                if (monthnum == 10)
+                if (l == 10)
                 {
                     month = "October";
                 }
-                if (monthnum == 11)
+                if (l == 11)
                 {
                     month = "November";
                 }
-                if (monthnum == 12)
+                if (l == 12)
                 {
                     month = "December";
                 }
                 else
                 {
                     month = "Null";
-                    monthnum = 1;
+                    l = 1;
                 }
+                Console.WriteLine(month);
                 outp = (int.Parse(tradeLength.Text) / int.Parse(fixedLegFreq.Text)) + int.Parse(fixedLegFreq.Text);
                 Console.WriteLine(outp);
                 Console.WriteLine("Test");
