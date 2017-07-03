@@ -59,6 +59,7 @@ namespace Trade_Entry_Application
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            int outp = 0;
             int i = 12;
             int monthnum = 0;
             string month = "January";
@@ -116,9 +117,9 @@ namespace Trade_Entry_Application
                 else
                 {
                     month = "Null";
-                    monthnum = 0;
+                    monthnum = 1;
                 }
-                int outp = int.Parse(tradeLength.Text) / int.Parse(fixedLegFreq.Text);
+                outp = (int.Parse(tradeLength.Text) / int.Parse(fixedLegFreq.Text)) + int.Parse(fixedLegFreq.Text);
                 Console.WriteLine(outp);
                 Console.WriteLine("Test");
 
@@ -131,14 +132,14 @@ namespace Trade_Entry_Application
                 DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
                 DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
 
-                    row.Cells[0].Value = resultBox.Text;
+                    row.Cells[0].Value = month;
                     row.Cells[1].Value = Businessday;
                     row.Cells[2].Value = resultBox.Text;
                     string currentdate = System.DateTime.Today.ToShortDateString();
                     paymentDates.Rows.Add(row);
 
                     int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
-                    row2.Cells[0].Value = resultBox.Text;
+                    row2.Cells[0].Value = month;
                     row2.Cells[1].Value = Businessday;
                     row2.Cells[2].Value = resultBox.Text;
                     paymentDates2.Rows.Add(row2);
