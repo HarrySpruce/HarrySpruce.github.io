@@ -62,22 +62,22 @@ namespace Trade_Entry_Application
         }
         private void button1_Click(object sender, EventArgs e)
         {
-                    paymentDates.Rows.Clear();
-                    paymentDates.Refresh();
-                    paymentDates2.Rows.Clear();
-                    paymentDates2.Refresh();
-                    decimal test = Decimal.Parse(Entry.Text) * Decimal.Parse(notionalEntry.Text);
-                    resultBox.Text = Convert.ToString(test);
-                    int fixedFreq = int.Parse(fixedLegFreq.Text);
-                    int floatFreq = int.Parse(floatingLegFreq.Text);
-                    int fixedNumberOfPayments = (int.Parse(tradeLength.Text) / fixedFreq);
-                    int floatingNumberOfPayments = (int.Parse(tradeLength.Text) / floatFreq);
-                    DateTime fixedPaymentDate = DateTime.Now;
-                    DateTime floatingPaymentDate = DateTime.Now;
-                    daynum = fixedPaymentDate.Day;
+            paymentDates.Rows.Clear();
+            paymentDates.Refresh();
+            paymentDates2.Rows.Clear();
+            paymentDates2.Refresh();
+            decimal test = Decimal.Parse(Entry.Text) * Decimal.Parse(notionalEntry.Text);
+            string x = Convert.ToString(test);
+            int fixedFreq = int.Parse(fixedLegFreq.Text);
+            int floatFreq = int.Parse(floatingLegFreq.Text);
+            int fixedNumberOfPayments = (int.Parse(tradeLength.Text) / fixedFreq);
+            int floatingNumberOfPayments = (int.Parse(tradeLength.Text) / floatFreq);
+            DateTime fixedPaymentDate = DateTime.Now;
+            DateTime floatingPaymentDate = DateTime.Now;
+            daynum = fixedPaymentDate.Day;
 
-                    for (int l = 0; l < fixedNumberOfPayments; l++)
-                    {
+            for (int l = 0; l < fixedNumberOfPayments; l++)
+            {
                 daynum++;
                 daynum2++;
                 if (daynum == 1)
@@ -121,6 +121,7 @@ namespace Trade_Entry_Application
                     daynum = 0;
                     dayoftheweek = "null";
                     Businessday = false;
+                    date = getNextBusinessDay(date);
                 }
 
                 Console.WriteLine("I iterated " + l + " Amount of times");
@@ -133,16 +134,17 @@ namespace Trade_Entry_Application
 
                 row.Cells[0].Value = fixedPaymentDate;
                 row.Cells[1].Value = Businessday;
-                row.Cells[2].Value = resultBox.Text;
+                row.Cells[2].Value = x;
                 row.Cells[3].Value = dayoftheweek;
-                Console.WriteLine(dayoftheweek);
+                row.Cells[4].Value = currency;
                 string currentdate = System.DateTime.Today.ToShortDateString();
                 paymentDates.Rows.Add(row);
-                    }
+            }
+            daynum2 = 1;
 
-                for (int d = 0; d < floatingNumberOfPayments; d++)
-                {
-                daynum2++;
+            for (int d = 0; d < floatingNumberOfPayments; d++)
+            {
+                daynum2 = daynum2 + 1;
                 if (daynum2 == 1)
                 {
                     dayoftheweek2 = "Monday";
@@ -190,12 +192,23 @@ namespace Trade_Entry_Application
                 int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
                 row2.Cells[0].Value = floatingPaymentDate;
                 row2.Cells[1].Value = Businessday2;
-                row2.Cells[2].Value = resultBox.Text;
-                row2.Cells[3].Value = dayoftheweek2;
+                row2.Cells[2].Value = dayoftheweek2;
+                row2.Cells[3].Value = currency;
                 paymentDates2.Rows.Add(row2);
             }
         }
 
+        private bool isBusinessDay(DateTime date)
+        {
+            int dayNum = (int)System.DateTime.Now.DayOfWeek;
+            
+            return (dayNum >= (int)DayOfWeek.Monday && dayNum <= (int)DayOfWeek.Friday);
+        }
+
+        private DateTime getNextBusinessDay(DateTime nonBusinessDay)
+        {
+            return nonBusinessDay;
+        }
 
         private void notionalEntry_TextChanged(object sender, EventArgs e)
         {
@@ -304,93 +317,10 @@ namespace Trade_Entry_Application
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            //Add variables that specify the fixedLegFreq
-            //Text Replacement for intervals.
-            if (fixedLegFreq.Text.EndsWith("M"))
-            {
-                int k = DateTime.DaysInMonth(System.DateTime.Now.Year, System.DateTime.Now.Month);
-                Console.WriteLine(k);
-            }
-            if (fixedLegFreq.Text.EndsWith("d"))
-            {
-                FixedLegFreqInterval = "Days";
-                fixedLegFreq.Text = fixedLegFreq.Text + " " + FixedLegFreqInterval;
-                currentlyusingfixed = "Days";
-            }
-            if (fixedLegFreq.Text.EndsWith("m"))
-            {
-                FixedLegFreqInterval = "Months";
-                fixedLegFreq.Text = fixedLegFreq.Text + " " + FixedLegFreqInterval;
-                currentlyusingfixed = "Months";
-            }
-            if (fixedLegFreq.Text.EndsWith("y"))
-            {
-                FixedLegFreqInterval = "Years";
-                fixedLegFreq.Text = fixedLegFreq.Text + " " + FixedLegFreqInterval;
-                currentlyusingfixed = "Years";
-            }
-            //Removes the m typed before it changes
-            if (currentlyusingfixed == "Months")
-            {
-                fixedLegFreq.Text = fixedLegFreq.Text.Replace("m", "");
-                currentlyusingfixed = "Nothing";
-            }
-            if (currentlyusingfixed == "Days")
-            {
-                fixedLegFreq.Text = fixedLegFreq.Text.Replace("d", "");
-                currentlyusingfixed = "Nothing";
-            }
-            if (currentlyusingfixed == "Years")
-            {
-                fixedLegFreq.Text = fixedLegFreq.Text.Replace("y", "");
-                currentlyusingfixed = "Nothing";
-            }
-            else
-            {
-                currentlyusingfixed = "Nothing";
-            }
         }
 
         private void floatingLegFreq_TextChanged(object sender, EventArgs e)
         {
-            if (floatingLegFreq.Text.EndsWith("d"))
-            {
-                currentlyusingfloat = "Days";
-                floatingLegFreqInterval = "Days";
-                floatingLegFreq.Text = floatingLegFreq.Text + " " + floatingLegFreqInterval;
-            }
-            if (floatingLegFreq.Text.EndsWith("m"))
-            {
-                currentlyusingfloat = "Months";
-                floatingLegFreqInterval = "Months";
-                floatingLegFreq.Text = floatingLegFreq.Text + " " + floatingLegFreqInterval;
-            }
-            if (floatingLegFreq.Text.EndsWith("y"))
-            {
-                currentlyusingfloat = "Years";
-                floatingLegFreqInterval = "Years";
-                floatingLegFreq.Text = floatingLegFreq.Text + " " + floatingLegFreqInterval;
-            }
-            //currently using actions
-            if (currentlyusingfloat == "Months")
-            {
-                floatingLegFreq.Text = floatingLegFreq.Text.Replace("m", "");
-                currentlyusingfloat = "nothing";
-            }
-            if (currentlyusingfloat == "Days")
-            {
-                floatingLegFreq.Text = floatingLegFreq.Text.Replace("d", "");
-                currentlyusingfloat = "nothing";
-            }
-            if (currentlyusingfloat == "Years")
-            {
-                floatingLegFreq.Text = floatingLegFreq.Text.Replace("y", "");
-                currentlyusingfloat = "nothing";
-            }
-            else
-            {
-                currentlyusingfloat = "Nothing";
-            }
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
