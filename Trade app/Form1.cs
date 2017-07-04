@@ -25,8 +25,6 @@ namespace Trade_Entry_Application
         string currency;
         string FixedLegFreqInterval;
         string floatingLegFreqInterval;
-        string currentlyusingfixed;
-        string currentlyusingfloat;
         public Form()
         {
             InitializeComponent();
@@ -52,12 +50,10 @@ namespace Trade_Entry_Application
             if (rateType.Text == "Fixed Rate")
             {
                 rateType.Text = "Floating Rate";
-                bool flip = true;
             }
             else
             {
                 rateType.Text = "Fixed Rate";
-                bool flip = false;
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -183,7 +179,7 @@ namespace Trade_Entry_Application
                 floatingPaymentDate = floatingPaymentDate.AddMonths(floatFreq);
                 int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
                 row2.Cells[0].Value = floatingPaymentDate;
-                row2.Cells[1].Value = Businessday2;
+                row2.Cells[1].Value = Businessday;
                 row2.Cells[2].Value = dayoftheweek2;
                 row2.Cells[3].Value = currency;
                 paymentDates2.Rows.Add(row2);
