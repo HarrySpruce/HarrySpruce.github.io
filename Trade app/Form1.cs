@@ -83,44 +83,44 @@ namespace Trade_Entry_Application
                 if (daynum == 1)
                 {
                     dayoftheweek = "Monday";
-                    Businessday = true;
+                    
                 }
                 else if (daynum == 2)
                 {
                     dayoftheweek = "Tuesday";
-                    Businessday = true;
+                    
                 }
                 else if (daynum == 3)
                 {
                     dayoftheweek = "Wednesday";
-                    Businessday = true;
+                    
                 }
                 else if (daynum == 4)
                 {
                     dayoftheweek = "Thursday";
-                    Businessday = true;
+                    
                 }
                 else if (daynum == 5)
                 {
                     dayoftheweek = "Friday";
-                    Businessday = true;
+                    
                 }
                 else if (daynum == 6)
                 {
                     dayoftheweek = "Saturday";
-                    Businessday = false;
+                    
                 }
                 else if (daynum == 7)
                 {
                     dayoftheweek = "Sunday";
-                    Businessday = false;
+                    
                     daynum = 1;
                 }
                 else
                 {
                     daynum = 0;
                     dayoftheweek = "null";
-                    Businessday = false;
+                    
                     date = getNextBusinessDay(date);
                 }
 
@@ -148,44 +148,36 @@ namespace Trade_Entry_Application
                 if (daynum2 == 1)
                 {
                     dayoftheweek2 = "Monday";
-                    Businessday2 = true;
                 }
                 else if (daynum2 == 2)
                 {
                     dayoftheweek2 = "Tuesday";
-                    Businessday2 = true;
                 }
                 else if (daynum2 == 3)
                 {
                     dayoftheweek2 = "Wednesday";
-                    Businessday2 = true;
                 }
                 else if (daynum2 == 4)
                 {
                     dayoftheweek2 = "Thursday";
-                    Businessday2 = true;
                 }
                 else if (daynum2 == 5)
                 {
                     dayoftheweek2 = "Friday";
-                    Businessday2 = true;
                 }
                 else if (daynum2 == 6)
                 {
                     dayoftheweek2 = "Saturday";
-                    Businessday2 = false;
                 }
                 else if (daynum2 == 7)
                 {
                     dayoftheweek2 = "Sunday";
-                    Businessday2 = false;
                     daynum2 = 1;
                 }
                 else
                 {
                     daynum2 = 1;
                     dayoftheweek2 = "null";
-                    Businessday2 = false;
                 }
                 DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
                 floatingPaymentDate = floatingPaymentDate.AddMonths(floatFreq);
