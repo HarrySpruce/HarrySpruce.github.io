@@ -61,6 +61,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.floatingRate = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.day = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates2)).BeginInit();
             this.SuspendLayout();
@@ -205,6 +207,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(53, 21);
             this.comboBox2.TabIndex = 17;
+            this.comboBox2.Text = "Days";
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // comboBox3
@@ -219,6 +222,7 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(53, 21);
             this.comboBox3.TabIndex = 18;
+            this.comboBox3.Text = "Days";
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // tradeLengthLabel
@@ -244,10 +248,11 @@
             this.paymentDates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Businessdays,
-            this.amountPayed});
+            this.amountPayed,
+            this.day});
             this.paymentDates.Location = new System.Drawing.Point(119, 260);
             this.paymentDates.Name = "paymentDates";
-            this.paymentDates.Size = new System.Drawing.Size(340, 219);
+            this.paymentDates.Size = new System.Drawing.Size(422, 219);
             this.paymentDates.TabIndex = 22;
             this.paymentDates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.paymentDates_CellContentClick);
             // 
@@ -272,10 +277,11 @@
             this.paymentDates2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.businessdays2,
-            this.amountPayed2});
+            this.amountPayed2,
+            this.day2});
             this.paymentDates2.Location = new System.Drawing.Point(120, 498);
             this.paymentDates2.Name = "paymentDates2";
-            this.paymentDates2.Size = new System.Drawing.Size(339, 228);
+            this.paymentDates2.Size = new System.Drawing.Size(421, 228);
             this.paymentDates2.TabIndex = 23;
             // 
             // dataGridViewTextBoxColumn1
@@ -317,6 +323,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 27;
+            this.textBox1.Text = "0";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // floatingRate
@@ -336,6 +343,16 @@
             this.label2.Size = new System.Drawing.Size(214, 13);
             this.label2.TabIndex = 28;
             this.label2.Text = "Enter m to set Frequency to once per month";
+            // 
+            // day
+            // 
+            this.day.HeaderText = "Day";
+            this.day.Name = "day";
+            // 
+            // day2
+            // 
+            this.day2.HeaderText = "Day";
+            this.day2.Name = "day2";
             // 
             // Form
             // 
@@ -412,6 +429,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn businessdays2;
         private System.Windows.Forms.DataGridViewTextBoxColumn amountPayed2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn day;
+        private System.Windows.Forms.DataGridViewTextBoxColumn day2;
     }
 }
 

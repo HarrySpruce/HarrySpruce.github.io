@@ -15,10 +15,13 @@ namespace Trade_Entry_Application
         DateTime date = DateTime.Now;
         DateTime utcDate = DateTime.UtcNow;
         DateTime Today = DateTime.Today;
-        int day = (int)System.DateTime.Now.DayOfWeek;
+        int daynum = (int)System.DateTime.Now.DayOfWeek;
+        int daynum2 = (int)System.DateTime.Now.DayOfWeek;
 
         bool Businessday;
+        bool Businessday2;
         string dayoftheweek;
+        string dayoftheweek2;
         string currency;
         string FixedLegFreqInterval;
         string floatingLegFreqInterval;
@@ -59,48 +62,67 @@ namespace Trade_Entry_Application
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            decimal test = Decimal.Parse(Entry.Text) * Decimal.Parse(notionalEntry.Text);
-            resultBox.Text = Convert.ToString(test);
-            int fixedFreq = int.Parse(fixedLegFreq.Text);
-            int floatFreq = int.Parse(floatingLegFreq.Text);
-            int fixedNumberOfPayments = (int.Parse(tradeLength.Text) / fixedFreq);
-            int floatingNumberOfPayments = (int.Parse(tradeLength.Text) / floatFreq);
-            DateTime fixedPaymentDate = DateTime.Now;
-            DateTime floatingPaymentDate = DateTime.Now;
-            day = fixedPaymentDate.Day;
-            if (day == 1)
-            {
-                dayoftheweek = "Monday";
-                Businessday = true;
-            }
-            else if (day == 2)
-            {
-                dayoftheweek = "Tuesday";
-                Businessday = true;
-            }
-            else if (day == 3)
-            {
-                dayoftheweek = "Wednesday";
-                Businessday = true;
-            }
-            else if (day == 4)
-            {
-                dayoftheweek = "Thursday";
-                Businessday = true;
-            }
-            else if (day == 5)
-            {
-                dayoftheweek = "Friday";
-                Businessday = true;
-            }
-            else
-            {
-                dayoftheweek = "null";
-                Businessday = false;
-            }
+                    paymentDates.Rows.Clear();
+                    paymentDates.Refresh();
+                    paymentDates2.Rows.Clear();
+                    paymentDates2.Refresh();
+                    decimal test = Decimal.Parse(Entry.Text) * Decimal.Parse(notionalEntry.Text);
+                    resultBox.Text = Convert.ToString(test);
+                    int fixedFreq = int.Parse(fixedLegFreq.Text);
+                    int floatFreq = int.Parse(floatingLegFreq.Text);
+                    int fixedNumberOfPayments = (int.Parse(tradeLength.Text) / fixedFreq);
+                    int floatingNumberOfPayments = (int.Parse(tradeLength.Text) / floatFreq);
+                    DateTime fixedPaymentDate = DateTime.Now;
+                    DateTime floatingPaymentDate = DateTime.Now;
+                    daynum = fixedPaymentDate.Day;
 
-            for (int l = 0; l < fixedNumberOfPayments; l++)
-            {
+                    for (int l = 0; l < fixedNumberOfPayments; l++)
+                    {
+                daynum++;
+                daynum2++;
+                if (daynum == 1)
+                {
+                    dayoftheweek = "Monday";
+                    Businessday = true;
+                }
+                else if (daynum == 2)
+                {
+                    dayoftheweek = "Tuesday";
+                    Businessday = true;
+                }
+                else if (daynum == 3)
+                {
+                    dayoftheweek = "Wednesday";
+                    Businessday = true;
+                }
+                else if (daynum == 4)
+                {
+                    dayoftheweek = "Thursday";
+                    Businessday = true;
+                }
+                else if (daynum == 5)
+                {
+                    dayoftheweek = "Friday";
+                    Businessday = true;
+                }
+                else if (daynum == 6)
+                {
+                    dayoftheweek = "Saturday";
+                    Businessday = false;
+                }
+                else if (daynum == 7)
+                {
+                    dayoftheweek = "Sunday";
+                    Businessday = false;
+                    daynum = 1;
+                }
+                else
+                {
+                    daynum = 0;
+                    dayoftheweek = "null";
+                    Businessday = false;
+                }
+
                 Console.WriteLine("I iterated " + l + " Amount of times");
                 Console.WriteLine("Test");
 
@@ -112,20 +134,66 @@ namespace Trade_Entry_Application
                 row.Cells[0].Value = fixedPaymentDate;
                 row.Cells[1].Value = Businessday;
                 row.Cells[2].Value = resultBox.Text;
+                row.Cells[3].Value = dayoftheweek;
+                Console.WriteLine(dayoftheweek);
                 string currentdate = System.DateTime.Today.ToShortDateString();
                 paymentDates.Rows.Add(row);
-            }
+                    }
 
-            for (int d = 0; d < floatingNumberOfPayments; d++)
+                for (int d = 0; d < floatingNumberOfPayments; d++)
                 {
+                daynum2++;
+                if (daynum2 == 1)
+                {
+                    dayoftheweek2 = "Monday";
+                    Businessday2 = true;
+                }
+                else if (daynum2 == 2)
+                {
+                    dayoftheweek2 = "Tuesday";
+                    Businessday2 = true;
+                }
+                else if (daynum2 == 3)
+                {
+                    dayoftheweek2 = "Wednesday";
+                    Businessday2 = true;
+                }
+                else if (daynum2 == 4)
+                {
+                    dayoftheweek2 = "Thursday";
+                    Businessday2 = true;
+                }
+                else if (daynum2 == 5)
+                {
+                    dayoftheweek2 = "Friday";
+                    Businessday2 = true;
+                }
+                else if (daynum2 == 6)
+                {
+                    dayoftheweek2 = "Saturday";
+                    Businessday2 = false;
+                }
+                else if (daynum2 == 7)
+                {
+                    dayoftheweek2 = "Sunday";
+                    Businessday2 = false;
+                    daynum2 = 1;
+                }
+                else
+                {
+                    daynum2 = 1;
+                    dayoftheweek2 = "null";
+                    Businessday2 = false;
+                }
                 DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
                 floatingPaymentDate = floatingPaymentDate.AddMonths(floatFreq);
                 int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
                 row2.Cells[0].Value = floatingPaymentDate;
-                row2.Cells[1].Value = Businessday;
+                row2.Cells[1].Value = Businessday2;
                 row2.Cells[2].Value = resultBox.Text;
+                row2.Cells[3].Value = dayoftheweek2;
                 paymentDates2.Rows.Add(row2);
-                }
+            }
         }
 
 
