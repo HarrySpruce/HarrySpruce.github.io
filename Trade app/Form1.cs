@@ -18,6 +18,7 @@ namespace Trade_Entry_Application
         int daynum = (int)System.DateTime.Now.DayOfWeek;
         int daynum2 = (int)System.DateTime.Now.DayOfWeek;
 
+        int dayNum = 0;
         bool Businessday;
         bool Businessday2;
         string dayoftheweek;
@@ -29,7 +30,7 @@ namespace Trade_Entry_Application
         {
             InitializeComponent();
             notionalEntry.Text = notionalEntry.Text + "0";
-            Entry.Text = Entry.Text + "0";
+            fixedRateTB.Text = fixedRateTB.Text + "0";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,9 +40,9 @@ namespace Trade_Entry_Application
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            if (Entry.Text == "")
+            if (fixedRateTB.Text == "")
             {
-                Entry.Text = "0";
+                fixedRateTB.Text = "0";
             }
         }
 
@@ -62,139 +63,71 @@ namespace Trade_Entry_Application
             paymentDates.Refresh();
             paymentDates2.Rows.Clear();
             paymentDates2.Refresh();
-            decimal test = Decimal.Parse(Entry.Text) * Decimal.Parse(notionalEntry.Text);
-            string x = Convert.ToString(test);
+
+            //decimal test = Decimal.Parse(notionalEntry.Text) / 100 * Decimal.Parse(fixedRateTB.Text) * Decimal.Parse(fixedNumberOfPayments);
+
+
             int fixedFreq = int.Parse(fixedLegFreq.Text);
             int floatFreq = int.Parse(floatingLegFreq.Text);
+
             int fixedNumberOfPayments = (int.Parse(tradeLength.Text) / fixedFreq);
             int floatingNumberOfPayments = (int.Parse(tradeLength.Text) / floatFreq);
+
+            // Calculate Fixed Payment
+            float fixedPayment = (float.Parse(fixedRateTB.Text)/ 100 * float.Parse(notionalEntry.Text)) / 12 * float.Parse(fixedLegFreq.Text);
+
             DateTime fixedPaymentDate = DateTime.Now;
             DateTime floatingPaymentDate = DateTime.Now;
-            daynum = fixedPaymentDate.Day;
 
             for (int l = 0; l < fixedNumberOfPayments; l++)
             {
-                daynum++;
-                daynum2++;
-                if (daynum == 1)
-                {
-                    dayoftheweek = "Monday";
-                    
-                }
-                else if (daynum == 2)
-                {
-                    dayoftheweek = "Tuesday";
-                    
-                }
-                else if (daynum == 3)
-                {
-                    dayoftheweek = "Wednesday";
-                    
-                }
-                else if (daynum == 4)
-                {
-                    dayoftheweek = "Thursday";
-                    
-                }
-                else if (daynum == 5)
-                {
-                    dayoftheweek = "Friday";
-                    
-                }
-                else if (daynum == 6)
-                {
-                    dayoftheweek = "Saturday";
-                    
-                }
-                else if (daynum == 7)
-                {
-                    dayoftheweek = "Sunday";
-                    
-                    daynum = 1;
-                }
-                else
-                {
-                    daynum = 0;
-                    dayoftheweek = "null";
-                    
-                    date = getNextBusinessDay(date);
-                }
-
-                Console.WriteLine("I iterated " + l + " Amount of times");
-                Console.WriteLine("Test");
-
                 fixedPaymentDate = fixedPaymentDate.AddMonths(fixedFreq);
-
-                string newDate = date.ToString();
                 DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
 
-                row.Cells[0].Value = fixedPaymentDate;
-                row.Cells[1].Value = Businessday;
-                row.Cells[2].Value = x;
-                row.Cells[3].Value = dayoftheweek;
+                row.Cells[0].Value = fixedPaymentDate.ToShortDateString();
+                row.Cells[1].Value = isBusinessDay(fixedPaymentDate);
+                if(isBusinessDay(fixedPaymentDate) == false)
+                {
+                    fixedPaymentDate = getNextBusinessDay(fixedPaymentDate);
+                }
+                row.Cells[2].Value = fixedPayment;
+                row.Cells[3].Value = fixedPaymentDate.DayOfWeek;
                 row.Cells[4].Value = currency;
-                string currentdate = System.DateTime.Today.ToShortDateString();
                 paymentDates.Rows.Add(row);
             }
-            daynum2 = 1;
 
             for (int d = 0; d < floatingNumberOfPayments; d++)
             {
-                daynum2 = daynum2 + 1;
-                if (daynum2 == 1)
-                {
-                    dayoftheweek2 = "Monday";
-                }
-                else if (daynum2 == 2)
-                {
-                    dayoftheweek2 = "Tuesday";
-                }
-                else if (daynum2 == 3)
-                {
-                    dayoftheweek2 = "Wednesday";
-                }
-                else if (daynum2 == 4)
-                {
-                    dayoftheweek2 = "Thursday";
-                }
-                else if (daynum2 == 5)
-                {
-                    dayoftheweek2 = "Friday";
-                }
-                else if (daynum2 == 6)
-                {
-                    dayoftheweek2 = "Saturday";
-                }
-                else if (daynum2 == 7)
-                {
-                    dayoftheweek2 = "Sunday";
-                    daynum2 = 1;
-                }
-                else
-                {
-                    daynum2 = 1;
-                    dayoftheweek2 = "null";
-                }
-                DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
                 floatingPaymentDate = floatingPaymentDate.AddMonths(floatFreq);
-                int floatLegFreqStringInt = int.Parse(floatingLegFreq.Text);
-                row2.Cells[0].Value = floatingPaymentDate;
-                row2.Cells[1].Value = Businessday;
-                row2.Cells[2].Value = dayoftheweek2;
-                row2.Cells[3].Value = currency;
+                DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
+
+                row2.Cells[0].Value = floatingPaymentDate.ToShortDateString();
+                row2.Cells[1].Value = isBusinessDay(floatingPaymentDate);
+                row2.Cells[3].Value = floatingPaymentDate.DayOfWeek;
+                row2.Cells[4].Value = currency;
                 paymentDates2.Rows.Add(row2);
             }
         }
 
         private bool isBusinessDay(DateTime date)
         {
-            int dayNum = (int)System.DateTime.Now.DayOfWeek;
-            
+            dayNum = (int)date.DayOfWeek;
+
             return (dayNum >= (int)DayOfWeek.Monday && dayNum <= (int)DayOfWeek.Friday);
         }
 
         private DateTime getNextBusinessDay(DateTime nonBusinessDay)
         {
+            if (dayNum == 6);
+            {
+                dayNum = dayNum + 1;
+            }
+            if (dayNum == 7)
+            {
+                dayNum++;
+            }
+
+
             return nonBusinessDay;
         }
 
@@ -211,7 +144,7 @@ namespace Trade_Entry_Application
             {
                 notionalEntry.Text = "0";
                 notionalEntry.SelectionLength = notionalEntry.Text.Length;
-                Entry.SelectionLength = Entry.Text.Length;
+                fixedRateTB.SelectionLength = fixedRateTB.Text.Length;
             }
         }
 
@@ -240,6 +173,15 @@ namespace Trade_Entry_Application
                 e.Handled = true;
                 double d = double.Parse(notionalEntry.Text);
                 d = d * 1000.0;
+                notionalEntry.Text = d.ToString();
+                Console.WriteLine(d);
+                notionalEntry.SelectionStart = notionalEntry.Text.Length;
+            }
+            if (e.KeyChar == 'b')
+            {
+                e.Handled = true;
+                double d = double.Parse(notionalEntry.Text);
+                d = d * 1000000000;
                 notionalEntry.Text = d.ToString();
                 Console.WriteLine(d);
                 notionalEntry.SelectionStart = notionalEntry.Text.Length;
@@ -319,6 +261,16 @@ namespace Trade_Entry_Application
         private void paymentDates_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void testbutton_Click(object sender, EventArgs e)
+        {
+            notionalEntry.Text = "1000";
+            fixedRateTB.Text = "5";
+            floatingLegFreq.Text = "2";
+            fixedLegFreq.Text = "4";
+            tradeLength.Text = "96";
+            comboBox1.Text = "GBP";
         }
     }
 }

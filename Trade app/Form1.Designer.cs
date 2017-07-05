@@ -33,7 +33,7 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.Notional = new System.Windows.Forms.Label();
             this.notionalEntry = new System.Windows.Forms.TextBox();
-            this.Entry = new System.Windows.Forms.TextBox();
+            this.fixedRateTB = new System.Windows.Forms.TextBox();
             this.rateType = new System.Windows.Forms.Label();
             this.calculate = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -53,11 +53,13 @@
             this.paymentDates2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.businessdays2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountPayedFloat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.day2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.myCurrencyFloat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fixedFreqTableLabel = new System.Windows.Forms.Label();
             this.floatingFreqTableLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.testbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates2)).BeginInit();
             this.SuspendLayout();
@@ -67,7 +69,7 @@
             this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.progressBar.Location = new System.Drawing.Point(4, 496);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(991, 28);
+            this.progressBar.Size = new System.Drawing.Size(1083, 28);
             this.progressBar.TabIndex = 0;
             // 
             // Notional
@@ -90,13 +92,13 @@
             this.notionalEntry.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.notionalEntry_KeyPress);
             this.notionalEntry.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.notionalEntry_PreviewKeyDown);
             // 
-            // Entry
+            // fixedRateTB
             // 
-            this.Entry.Location = new System.Drawing.Point(24, 127);
-            this.Entry.Name = "Entry";
-            this.Entry.Size = new System.Drawing.Size(100, 20);
-            this.Entry.TabIndex = 1;
-            this.Entry.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            this.fixedRateTB.Location = new System.Drawing.Point(24, 127);
+            this.fixedRateTB.Name = "fixedRateTB";
+            this.fixedRateTB.Size = new System.Drawing.Size(100, 20);
+            this.fixedRateTB.TabIndex = 1;
+            this.fixedRateTB.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // rateType
             // 
@@ -202,9 +204,9 @@
             this.amountPayed,
             this.day,
             this.myCurrencyFixed});
-            this.paymentDates.Location = new System.Drawing.Point(444, 270);
+            this.paymentDates.Location = new System.Drawing.Point(543, 270);
             this.paymentDates.Name = "paymentDates";
-            this.paymentDates.Size = new System.Drawing.Size(551, 228);
+            this.paymentDates.Size = new System.Drawing.Size(544, 228);
             this.paymentDates.TabIndex = 8;
             this.paymentDates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.paymentDates_CellContentClick);
             // 
@@ -240,11 +242,12 @@
             this.paymentDates2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.businessdays2,
+            this.amountPayedFloat,
             this.day2,
             this.myCurrencyFloat});
             this.paymentDates2.Location = new System.Drawing.Point(3, 270);
             this.paymentDates2.Name = "paymentDates2";
-            this.paymentDates2.Size = new System.Drawing.Size(444, 228);
+            this.paymentDates2.Size = new System.Drawing.Size(542, 228);
             this.paymentDates2.TabIndex = 9;
             // 
             // dataGridViewTextBoxColumn1
@@ -256,6 +259,11 @@
             // 
             this.businessdays2.HeaderText = "Business Days";
             this.businessdays2.Name = "businessdays2";
+            // 
+            // amountPayedFloat
+            // 
+            this.amountPayedFloat.HeaderText = "Amount Payed";
+            this.amountPayedFloat.Name = "amountPayedFloat";
             // 
             // day2
             // 
@@ -291,18 +299,30 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Impact", 26F);
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label3.Location = new System.Drawing.Point(286, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(473, 43);
             this.label3.TabIndex = 27;
             this.label3.Text = "Interest Rate Swaps Trade Entry";
             // 
+            // testbutton
+            // 
+            this.testbutton.Location = new System.Drawing.Point(834, 153);
+            this.testbutton.Name = "testbutton";
+            this.testbutton.Size = new System.Drawing.Size(75, 23);
+            this.testbutton.TabIndex = 28;
+            this.testbutton.Text = "test";
+            this.testbutton.UseVisualStyleBackColor = true;
+            this.testbutton.Click += new System.EventHandler(this.testbutton_Click);
+            // 
             // Form
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1001, 525);
+            this.ClientSize = new System.Drawing.Size(1087, 525);
+            this.Controls.Add(this.testbutton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.floatingFreqTableLabel);
             this.Controls.Add(this.fixedFreqTableLabel);
@@ -316,7 +336,7 @@
             this.Controls.Add(this.fixedLegFreq);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.calculate);
-            this.Controls.Add(this.Entry);
+            this.Controls.Add(this.fixedRateTB);
             this.Controls.Add(this.rateType);
             this.Controls.Add(this.notionalEntry);
             this.Controls.Add(this.Notional);
@@ -339,7 +359,7 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label Notional;
         private System.Windows.Forms.TextBox notionalEntry;
-        private System.Windows.Forms.TextBox Entry;
+        private System.Windows.Forms.TextBox fixedRateTB;
         private System.Windows.Forms.Label rateType;
         private System.Windows.Forms.Button calculate;
         private System.Windows.Forms.Timer timer1;
@@ -359,11 +379,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn amountPayed;
         private System.Windows.Forms.DataGridViewTextBoxColumn day;
         private System.Windows.Forms.DataGridViewTextBoxColumn myCurrencyFixed;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn businessdays2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn amountPayedFloat;
         private System.Windows.Forms.DataGridViewTextBoxColumn day2;
         private System.Windows.Forms.DataGridViewTextBoxColumn myCurrencyFloat;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button testbutton;
     }
 }
 
