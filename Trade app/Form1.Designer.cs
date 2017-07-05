@@ -34,7 +34,7 @@
             this.Notional = new System.Windows.Forms.Label();
             this.notionalEntry = new System.Windows.Forms.TextBox();
             this.fixedRateTB = new System.Windows.Forms.TextBox();
-            this.rateType = new System.Windows.Forms.Label();
+            this.fixedOrFloat = new System.Windows.Forms.Label();
             this.calculate = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -60,16 +60,28 @@
             this.floatingFreqTableLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.testbutton = new System.Windows.Forms.Button();
+            this.Blotter = new System.Windows.Forms.DataGridView();
+            this.tradeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlotterNotional = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fixedRateBlotter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fixedLegFreqBlotter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.floatingLegFreqBlotter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tradeLengthBlotter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rateType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.book = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Blotter)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar
             // 
             this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.progressBar.Location = new System.Drawing.Point(4, 496);
+            this.progressBar.Location = new System.Drawing.Point(3, 850);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(1083, 28);
+            this.progressBar.Size = new System.Drawing.Size(1101, 28);
             this.progressBar.TabIndex = 0;
             // 
             // Notional
@@ -88,9 +100,7 @@
             this.notionalEntry.Size = new System.Drawing.Size(100, 20);
             this.notionalEntry.TabIndex = 0;
             this.notionalEntry.TextChanged += new System.EventHandler(this.notionalEntry_TextChanged);
-            this.notionalEntry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.notionalEntry_KeyDown);
             this.notionalEntry.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.notionalEntry_KeyPress);
-            this.notionalEntry.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.notionalEntry_PreviewKeyDown);
             // 
             // fixedRateTB
             // 
@@ -100,15 +110,15 @@
             this.fixedRateTB.TabIndex = 1;
             this.fixedRateTB.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
-            // rateType
+            // fixedOrFloat
             // 
-            this.rateType.AutoSize = true;
-            this.rateType.Location = new System.Drawing.Point(24, 111);
-            this.rateType.Name = "rateType";
-            this.rateType.Size = new System.Drawing.Size(58, 13);
-            this.rateType.TabIndex = 11;
-            this.rateType.Text = "Fixed Rate";
-            this.rateType.Click += new System.EventHandler(this.label5_Click);
+            this.fixedOrFloat.AutoSize = true;
+            this.fixedOrFloat.Location = new System.Drawing.Point(24, 111);
+            this.fixedOrFloat.Name = "fixedOrFloat";
+            this.fixedOrFloat.Size = new System.Drawing.Size(58, 13);
+            this.fixedOrFloat.TabIndex = 11;
+            this.fixedOrFloat.Text = "Fixed Rate";
+            this.fixedOrFloat.Click += new System.EventHandler(this.label5_Click);
             // 
             // calculate
             // 
@@ -148,7 +158,6 @@
             this.fixedLegFreq.Size = new System.Drawing.Size(100, 20);
             this.fixedLegFreq.TabIndex = 3;
             this.fixedLegFreq.Text = "0";
-            this.fixedLegFreq.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
@@ -175,7 +184,6 @@
             this.floatingLegFreq.Size = new System.Drawing.Size(100, 20);
             this.floatingLegFreq.TabIndex = 4;
             this.floatingLegFreq.Text = "0";
-            this.floatingLegFreq.TextChanged += new System.EventHandler(this.floatingLegFreq_TextChanged);
             // 
             // tradeLengthLabel
             // 
@@ -204,11 +212,10 @@
             this.amountPayed,
             this.day,
             this.myCurrencyFixed});
-            this.paymentDates.Location = new System.Drawing.Point(543, 270);
+            this.paymentDates.Location = new System.Drawing.Point(551, 270);
             this.paymentDates.Name = "paymentDates";
             this.paymentDates.Size = new System.Drawing.Size(544, 228);
             this.paymentDates.TabIndex = 8;
-            this.paymentDates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.paymentDates_CellContentClick);
             // 
             // Column1
             // 
@@ -247,7 +254,7 @@
             this.myCurrencyFloat});
             this.paymentDates2.Location = new System.Drawing.Point(3, 270);
             this.paymentDates2.Name = "paymentDates2";
-            this.paymentDates2.Size = new System.Drawing.Size(542, 228);
+            this.paymentDates2.Size = new System.Drawing.Size(551, 228);
             this.paymentDates2.TabIndex = 9;
             // 
             // dataGridViewTextBoxColumn1
@@ -308,7 +315,7 @@
             // 
             // testbutton
             // 
-            this.testbutton.Location = new System.Drawing.Point(834, 153);
+            this.testbutton.Location = new System.Drawing.Point(141, 163);
             this.testbutton.Name = "testbutton";
             this.testbutton.Size = new System.Drawing.Size(75, 23);
             this.testbutton.TabIndex = 28;
@@ -316,12 +323,111 @@
             this.testbutton.UseVisualStyleBackColor = true;
             this.testbutton.Click += new System.EventHandler(this.testbutton_Click);
             // 
+            // Blotter
+            // 
+            this.Blotter.BackgroundColor = System.Drawing.Color.White;
+            this.Blotter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Blotter.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.tradeID,
+            this.tradeDate,
+            this.BlotterNotional,
+            this.fixedRateBlotter,
+            this.fixedLegFreqBlotter,
+            this.floatingLegFreqBlotter,
+            this.tradeLengthBlotter,
+            this.rateType});
+            this.Blotter.Location = new System.Drawing.Point(3, 568);
+            this.Blotter.Name = "Blotter";
+            this.Blotter.Size = new System.Drawing.Size(845, 254);
+            this.Blotter.TabIndex = 29;
+            this.Blotter.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Blotter_CellContentClick);
+            // 
+            // tradeID
+            // 
+            this.tradeID.HeaderText = "Trade Id";
+            this.tradeID.Name = "tradeID";
+            this.tradeID.ReadOnly = true;
+            // 
+            // tradeDate
+            // 
+            this.tradeDate.HeaderText = "Trade Date/Trade Time";
+            this.tradeDate.Name = "tradeDate";
+            // 
+            // BlotterNotional
+            // 
+            this.BlotterNotional.HeaderText = "Notional";
+            this.BlotterNotional.Name = "BlotterNotional";
+            // 
+            // fixedRateBlotter
+            // 
+            this.fixedRateBlotter.HeaderText = "Fixed Rate";
+            this.fixedRateBlotter.Name = "fixedRateBlotter";
+            // 
+            // fixedLegFreqBlotter
+            // 
+            this.fixedLegFreqBlotter.HeaderText = "Fixed Leg Frequency";
+            this.fixedLegFreqBlotter.Name = "fixedLegFreqBlotter";
+            // 
+            // floatingLegFreqBlotter
+            // 
+            this.floatingLegFreqBlotter.HeaderText = "Floating Leg Frequency";
+            this.floatingLegFreqBlotter.Name = "floatingLegFreqBlotter";
+            // 
+            // tradeLengthBlotter
+            // 
+            this.tradeLengthBlotter.HeaderText = "Trade Length - Months";
+            this.tradeLengthBlotter.Name = "tradeLengthBlotter";
+            // 
+            // rateType
+            // 
+            this.rateType.HeaderText = "Rate Type";
+            this.rateType.Name = "rateType";
+            // 
+            // book
+            // 
+            this.book.Location = new System.Drawing.Point(12, 520);
+            this.book.Name = "book";
+            this.book.Size = new System.Drawing.Size(75, 23);
+            this.book.TabIndex = 30;
+            this.book.Text = "BOOK";
+            this.book.UseVisualStyleBackColor = true;
+            this.book.Click += new System.EventHandler(this.book_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "LIBOR",
+            "EIBOR",
+            "EURIBOR",
+            "HELIBOR",
+            "HIBOR",
+            "MIBOR(Moscow inter-bank offer rate)",
+            "MIBOR(Mumbai inter-bank offer rate)",
+            "OIS",
+            "RIGIBOR",
+            "SAIBOR",
+            "SIOR",
+            "SIBOR",
+            "SSOR",
+            "SIOR",
+            "TED spread",
+            "TIBOR"});
+            this.comboBox2.Location = new System.Drawing.Point(141, 204);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(75, 21);
+            this.comboBox2.TabIndex = 31;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
             // Form
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1087, 525);
+            this.ClientSize = new System.Drawing.Size(1104, 872);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.book);
+            this.Controls.Add(this.Blotter);
             this.Controls.Add(this.testbutton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.floatingFreqTableLabel);
@@ -337,7 +443,7 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.calculate);
             this.Controls.Add(this.fixedRateTB);
-            this.Controls.Add(this.rateType);
+            this.Controls.Add(this.fixedOrFloat);
             this.Controls.Add(this.notionalEntry);
             this.Controls.Add(this.Notional);
             this.Controls.Add(this.progressBar);
@@ -349,6 +455,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDates2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Blotter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,7 +467,7 @@
         private System.Windows.Forms.Label Notional;
         private System.Windows.Forms.TextBox notionalEntry;
         private System.Windows.Forms.TextBox fixedRateTB;
-        private System.Windows.Forms.Label rateType;
+        private System.Windows.Forms.Label fixedOrFloat;
         private System.Windows.Forms.Button calculate;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -386,6 +493,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn day2;
         private System.Windows.Forms.DataGridViewTextBoxColumn myCurrencyFloat;
         private System.Windows.Forms.Button testbutton;
+        private System.Windows.Forms.DataGridView Blotter;
+        private System.Windows.Forms.Button book;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tradeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tradeDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlotterNotional;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fixedRateBlotter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fixedLegFreqBlotter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn floatingLegFreqBlotter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tradeLengthBlotter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rateType;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 

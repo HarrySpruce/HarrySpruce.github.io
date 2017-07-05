@@ -17,15 +17,12 @@ namespace Trade_Entry_Application
         DateTime Today = DateTime.Today;
         int daynum = (int)System.DateTime.Now.DayOfWeek;
         int daynum2 = (int)System.DateTime.Now.DayOfWeek;
+        int ID;
+        string Security;
 
         int dayNum = 0;
-        bool Businessday;
-        bool Businessday2;
-        string dayoftheweek;
-        string dayoftheweek2;
         string currency;
-        string FixedLegFreqInterval;
-        string floatingLegFreqInterval;
+
         public Form()
         {
             InitializeComponent();
@@ -48,13 +45,13 @@ namespace Trade_Entry_Application
 
         private void label5_Click(object sender, EventArgs e)
         {
-            if (rateType.Text == "Fixed Rate")
+            if (fixedOrFloat.Text == "Fixed Rate")
             {
-                rateType.Text = "Floating Rate";
+                fixedOrFloat.Text = "Floating Rate";
             }
             else
             {
-                rateType.Text = "Fixed Rate";
+                fixedOrFloat.Text = "Fixed Rate";
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -84,12 +81,13 @@ namespace Trade_Entry_Application
                 fixedPaymentDate = fixedPaymentDate.AddMonths(fixedFreq);
                 DataGridViewRow row = (DataGridViewRow)paymentDates.Rows[0].Clone();
 
-                row.Cells[0].Value = fixedPaymentDate.ToShortDateString();
-                row.Cells[1].Value = isBusinessDay(fixedPaymentDate);
                 if(isBusinessDay(fixedPaymentDate) == false)
                 {
                     fixedPaymentDate = getNextBusinessDay(fixedPaymentDate);
                 }
+
+                row.Cells[0].Value = fixedPaymentDate.ToShortDateString();
+                row.Cells[1].Value = isBusinessDay(fixedPaymentDate);
                 row.Cells[2].Value = fixedPayment;
                 row.Cells[3].Value = fixedPaymentDate.DayOfWeek;
                 row.Cells[4].Value = currency;
@@ -101,6 +99,10 @@ namespace Trade_Entry_Application
                 floatingPaymentDate = floatingPaymentDate.AddMonths(floatFreq);
                 DataGridViewRow row2 = (DataGridViewRow)paymentDates2.Rows[0].Clone();
 
+                if (isBusinessDay(floatingPaymentDate) == false)
+                {
+                   floatingPaymentDate = getNextBusinessDay(floatingPaymentDate);
+                }
                 row2.Cells[0].Value = floatingPaymentDate.ToShortDateString();
                 row2.Cells[1].Value = isBusinessDay(floatingPaymentDate);
                 row2.Cells[3].Value = floatingPaymentDate.DayOfWeek;
@@ -118,42 +120,26 @@ namespace Trade_Entry_Application
 
         private DateTime getNextBusinessDay(DateTime nonBusinessDay)
         {
-            if (dayNum == 6);
+            if(nonBusinessDay.DayOfWeek == DayOfWeek.Saturday)
             {
-                dayNum = dayNum + 1;
+                nonBusinessDay = nonBusinessDay.AddDays(2);
             }
-            if (dayNum == 7)
+            else if (nonBusinessDay.DayOfWeek == DayOfWeek.Sunday)
             {
-                dayNum++;
+                nonBusinessDay = nonBusinessDay.AddDays(1);
             }
-
 
             return nonBusinessDay;
         }
 
         private void notionalEntry_TextChanged(object sender, EventArgs e)
         {
-            /*
-            decimal notionalEntryDec = Convert.ToDecimal(notionalEntry.Text);
-            if (notionalEntry.Text.EndsWith("m")) {
-                decimal outputasdecimal = notionalEntryDec * 1000000;
-                string output = Convert.ToString(outputasdecimal);
-                notionalEntry.Text = output;
-            }*/
             if (notionalEntry.Text == "")
             {
                 notionalEntry.Text = "0";
                 notionalEntry.SelectionLength = notionalEntry.Text.Length;
                 fixedRateTB.SelectionLength = fixedRateTB.Text.Length;
             }
-        }
-
-        private void notionalEntry_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
-        private void notionalEntry_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
         }
 
         private void notionalEntry_KeyPress(object sender, KeyPressEventArgs e)
@@ -194,10 +180,6 @@ namespace Trade_Entry_Application
             }
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.progressBar.Increment(90);
@@ -232,36 +214,11 @@ namespace Trade_Entry_Application
             }
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            floatingLegFreq.Text = floatingLegFreq.Text + " " + floatingLegFreqInterval;
+            floatingLegFreq.Text = floatingLegFreq.Text;
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void floatingLegFreq_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void paymentDates_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        
 
         private void testbutton_Click(object sender, EventArgs e)
         {
@@ -271,6 +228,36 @@ namespace Trade_Entry_Application
             fixedLegFreq.Text = "4";
             tradeLength.Text = "96";
             comboBox1.Text = "GBP";
+            comboBox2.Text = "LIBOR";
+        }
+
+        private void book_Click(object sender, EventArgs e)
+        {
+            ID++;
+            DataGridViewRow row3 = (DataGridViewRow)Blotter.Rows[0].Clone();
+            row3.Cells[0].Value = ID;
+            row3.Cells[1].Value = DateTime.Now; 
+            row3.Cells[2].Value = notionalEntry.Text;
+            row3.Cells[3].Value = fixedRateTB.Text;
+            row3.Cells[4].Value = fixedLegFreq.Text;
+            row3.Cells[5].Value = floatingLegFreq.Text;
+            row3.Cells[6].Value = tradeLength.Text;
+            row3.Cells[7].Value = Security;
+            Blotter.Rows.Add(row3);
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            Security = comboBox2.Text;
+        }
+
+        private void Blotter_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (Blotter.CellDoubleClick)
+            {
+
+            }
         }
     }
 }
